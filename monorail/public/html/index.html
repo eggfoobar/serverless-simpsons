@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <link rel="stylesheet" href="/css/main.css"/>
+        <link rel="shortcut icon" type="image/jpg" href="/images/favicon.jpg"/>
+        <style>
+            .bg {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+                height: 100%;
+                background-color: #f9d22c;
+                background-image: url('images/everyone.jpg');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-attachment: fixed;
+                background-size: cover;
+            }
+            .container > .text {
+                justify-self: center;
+                text-align: center;
+            }
+            .duff {
+                background-image: url('images/duff.png');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: auto 50%;
+                height: 80%;
+            }
+        </style>
+    </head>
+    <body class="bg">
+        <div class="avatar_canvas">
+            <div loading id="avatar_layout" class="avatar_layout">
+                <div id="loading" class="avatar">
+                    <div class="duff animate__animated animate__headShake animate__slow animate__infinite"></div>
+                    <h1 class="text bort-font">Loading...</h1>
+                </div>
+
+                <div id="icon-g" hide class="avatar">
+                    <img id="gh-img" src="" alt="">
+                    <h1 id="gh-name" class="bort-font">Github</h1>
+                </div>
+
+                <div id="icon-sp" hide class="avatar">
+                    <h3 id="sp-catchphrase" class="bort-font">Github</h1>
+                </div>
+    
+                <div id="icon-s" hide class="avatar">
+                    <img id="sp-img" src="" alt="">
+                    <h1 id="sp-name" class="bort-font">Simpsons</h1>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var profile = JSON.parse(this.responseText)
+                    document.getElementById("gh-img").src = profile.avatar_url;
+                    document.getElementById("gh-name").innerHTML = profile.login;
+                    document.getElementById("sp-img").src = profile.simpson.avatar_url;
+                    document.getElementById("sp-name").innerHTML = profile.simpson.name;
+                    document.getElementById("sp-catchphrase").innerHTML = profile.simpson.quote;
+
+                    document.getElementById("loading").setAttribute("hide", "");
+                    document.getElementById("icon-g").removeAttribute("hide");
+                    document.getElementById("icon-s").removeAttribute("hide");
+                    document.getElementById("icon-sp").removeAttribute("hide");
+                    document.getElementById("avatar_layout").removeAttribute("loading");
+
+                } else if(this.readyState == 4 && this.status >= 400) {
+                    window.location.replace("/login.html");
+                }
+            };
+            xhttp.open("GET", "/api/userinfo", true);
+            xhttp.send();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,9 @@
+.DS_Store
+*.env
+*.tfstate
+*.tfstate.backup
+*.tfvars
+*.plan
+.terraform
+*.zip
+build

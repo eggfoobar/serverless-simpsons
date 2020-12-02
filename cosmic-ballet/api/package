@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "Building and ziping app"
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o build/api && cd build && zip api.zip api
